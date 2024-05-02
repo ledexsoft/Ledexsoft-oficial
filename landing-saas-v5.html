@@ -353,15 +353,15 @@
     </header>
 
     <!-- Hero section --> <!-- particles.js container -->
-      <div id="particles-js"></div> 
+    <div id="particles-js"></div>
     <section class="position-relative bg-dark pt-lg-4 pt-xl-5"
       style="background: linear-gradient(90deg, #0B0F19 0%, #172033 51.04%, #0B0F19 100%);">
-     
+
       <div class="jarallax position-absolute top-0 start-0 w-100 h-100" data-jarallax data-speed="0.4">
         <div class="jarallax-img" style="background-image: url(assets/img/landing/saas-5/hero-bg-pattern.png);"></div>
       </div>
-      
-      
+
+
       <div class="container position-relative zindex-2 pt-2 pt-sm-4 pt-md-5">
         <div class="row justify-content-center">
           <div class="col-lg-9 col-xl-8 text-center pt-5 mt-1">
@@ -1224,26 +1224,34 @@
       <div class="container position-relative zindex-2 py-2 py-sm-3 py-sm-4 py-md-5">
         <div class="row align-items-center py-lg-2 py-xl-3 my-xl-1 my-xxl-3">
           <div class="col-md-5 col-xl-4">
-            <h2 class="h1 pb-2 pb-sm-3 mb-md-0">Learn <span class="text-gradient-primary">how Silicon works</span> in a
-              nutshell. Watch a short introductory video</h2>
+            <h2 class="h1 pb-2 pb-sm-3 mb-md-0">Disfrura de <span class="text-gradient-primary">Animaciones
+                increibles</span> en tu
+              sitio web creado por nuestro equipo de diseño</h2>
           </div>
           <div class="col-md-7 offset-xl-1">
             <div class="position-relative">
               <div
                 class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center zindex-5">
-                <a href="https://www.youtube.com/watch?v=ADpOLD2z1Ns"
-                  class="btn btn-video btn-icon btn-xl stretched-link bg-white" data-bs-toggle="video"
-                  aria-label="Play video">
-                  <i class="bx bx-play"></i>
-                </a>
+
               </div>
-              <img src="assets/img/landing/saas-5/video-cover-light.jpg" class="d-dark-mode-none rounded-3"
-                alt="Video cover">
-              <img src="assets/img/landing/saas-5/video-cover-dark.png" class="d-none d-dark-mode-block rounded-3"
-                alt="Video cover">
             </div>
+            <canvas id="canvas" width="500" height="500"></canvas>
+
+            <script src="https://unpkg.com/@rive-app/canvas@2.7.0"></script>
+            <script>
+              const r = new rive.Rive({
+                src: "assets/animations/hero_bot.riv",
+                canvas: document.getElementById("canvas"),
+                autoplay: true,
+                stateMachines: "State Machine 1",
+                onLoad: () => {
+                  r.resizeDrawingSurfaceToCanvas();
+                },
+              });
+            </script>
           </div>
         </div>
+      </div>
       </div>
     </section>
 
