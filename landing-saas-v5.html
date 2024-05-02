@@ -1216,7 +1216,7 @@
 
 
     <!-- Video -->
-    <section class="position-relative py-5">
+    <section id="play_rive" class="position-relative py-5">
       <span class="position-absolute top-0 start-0 w-100 h-100 d-dark-mode-none"
         style="background: linear-gradient(360deg, #fff 5.39%, #f3f6ff 78.66%);"></span>
       <span class="position-absolute top-0 start-0 w-100 h-100 d-none d-dark-mode-block"
@@ -1235,7 +1235,19 @@
 
               </div>
             </div>
-            <canvas id="canvas" width="500%" height="500%"></canvas>
+            <canvas id="canvas"></canvas>
+            <style>
+              #canvas {
+                width: 500px;
+                height: 500px;
+              }
+              @media (max-width: 768px) {
+                #canvas {
+                  width: 100%;
+                  height: 100%;
+                }
+              }
+            </style>
 
             <script src="assets/js/rive.js"></script>
             <script>
@@ -1248,7 +1260,7 @@
                 r = new rive.Rive({
                   src: 'assets/animations/hero_bot.riv',
                   canvas: document.getElementById('canvas'),
-                  autoplay: false,
+                  autoplay: true, // Cambia a true para reproducir automáticamente
                   stateMachines: 'State Machine 1',
                   onLoad: () => {
                     r.resizeDrawingSurfaceToCanvas();
@@ -1263,23 +1275,16 @@
     
               // Evento para verificar si la sección está visible y cargar la animación
               window.addEventListener('scroll', function() {
-                const canvasPosition = document.getElementById('canvas').getBoundingClientRect();
-                if (canvasPosition.top < window.innerHeight && !animationLoaded) {
+                const sectionPosition = document.getElementById('play_rive').getBoundingClientRect();
+                if (sectionPosition.top < window.innerHeight && !animationLoaded) {
                   loadRiveAnimation();
                 }
               });
     
               // También verifica si la animación debe cargarse cuando se carga la página
-              if (document.getElementById('canvas').getBoundingClientRect().top < window.innerHeight) {
+              if (document.getElementById('play_rive').getBoundingClientRect().top < window.innerHeight) {
                 loadRiveAnimation();
               }
-    
-              // Evento para iniciar la animación cuando se hace clic en el canvas
-              document.getElementById('canvas').addEventListener('click', function() {
-                if (r) {
-                  r.play();
-                }
-              });
             </script>
           </div>
         </div>
