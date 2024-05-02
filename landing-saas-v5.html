@@ -1235,18 +1235,50 @@
 
               </div>
             </div>
-            <canvas id="canvas" width="100%" height="100%"></canvas>
+            <canvas id="canvas" width="500%" height="500%"></canvas>
 
             <script src="assets/js/rive.js"></script>
             <script>
-              const r = new rive.Rive({
-                src: "assets/animations/hero_bot.riv",
-                canvas: document.getElementById("canvas"),
-                autoplay: true,
-                stateMachines: "State Machine 1",
-                onLoad: () => {
-                  r.resizeDrawingSurfaceToCanvas();
-                },
+              // Define una variable para controlar si la animación ya se cargó
+              let animationLoaded = false;
+              let r;
+    
+              // Función para cargar la animación de Rive
+              function loadRiveAnimation() {
+                r = new rive.Rive({
+                  src: 'assets/animations/hero_bot.riv',
+                  canvas: document.getElementById('canvas'),
+                  autoplay: false,
+                  stateMachines: 'State Machine 1',
+                  onLoad: () => {
+                    r.resizeDrawingSurfaceToCanvas();
+                    // Encuentra la State Machine y la entrada booleana
+                    const input = r.stateMachineInputs('State Machine 1')[0];
+                    // Cambia el valor de la entrada booleana a true para activar la animación
+                    r.setInputState('State Machine 1', input.name, true);
+                  },
+                });
+                animationLoaded = true; // Marca la animación como cargada
+              }
+    
+              // Evento para verificar si la sección está visible y cargar la animación
+              window.addEventListener('scroll', function() {
+                const canvasPosition = document.getElementById('canvas').getBoundingClientRect();
+                if (canvasPosition.top < window.innerHeight && !animationLoaded) {
+                  loadRiveAnimation();
+                }
+              });
+    
+              // También verifica si la animación debe cargarse cuando se carga la página
+              if (document.getElementById('canvas').getBoundingClientRect().top < window.innerHeight) {
+                loadRiveAnimation();
+              }
+    
+              // Evento para iniciar la animación cuando se hace clic en el canvas
+              document.getElementById('canvas').addEventListener('click', function() {
+                if (r) {
+                  r.play();
+                }
               });
             </script>
           </div>
